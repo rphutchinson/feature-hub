@@ -109,6 +109,13 @@ export interface FeatureAppContainerProps<
   readonly featureAppId: string;
 
   /**
+   * The Feature App's name. In contrast to the `featureAppId`, the name must
+   * not be unique. It can be used by required Feature Services for display
+   * purposes, logging, looking up Feature App configs, etc.
+   */
+  readonly featureAppName?: string;
+
+  /**
    * The absolute or relative base URL of the Feature App's assets and/or BFF.
    */
   readonly baseUrl?: string;
@@ -205,6 +212,7 @@ class InternalFeatureAppContainer<
       config,
       featureAppDefinition,
       featureAppId,
+      featureAppName,
       featureAppManager,
       done
     } = props;
@@ -213,7 +221,7 @@ class InternalFeatureAppContainer<
       this.featureAppScope = featureAppManager.createFeatureAppScope(
         featureAppId,
         featureAppDefinition,
-        {baseUrl, config, beforeCreate, done}
+        {featureAppName, baseUrl, config, beforeCreate, done}
       );
 
       const {featureApp} = this.featureAppScope;
